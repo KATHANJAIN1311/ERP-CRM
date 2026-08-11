@@ -1,0 +1,110 @@
+.sidebar {
+  width: 220px;
+  min-height: 100vh;
+  background: #1e293b;
+  color: #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 200;
+  transition: transform 0.25s ease;
+}
+
+.sidebar-brand {
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding: 20px 24px;
+  background: #0f172a;
+  letter-spacing: 1px;
+  color: #38bdf8;
+}
+
+.sidebar-user {
+  padding: 12px 24px;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #334155;
+  margin-bottom: 8px;
+}
+
+.sidebar-user span {
+  display: block;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  text-transform: capitalize;
+}
+
+.sidebar nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar nav a {
+  padding: 11px 24px;
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background 0.15s;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+  background: #334155;
+  color: #38bdf8;
+}
+
+.logout-btn {
+  margin: 16px;
+  padding: 10px;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.logout-btn:hover { background: #dc2626; }
+
+/* Hamburger — hidden on desktop */
+.hamburger {
+  display: none;
+  position: fixed;
+  top: 14px; left: 14px;
+  z-index: 300;
+  background: #1e293b;
+  border: none;
+  border-radius: 7px;
+  padding: 8px 10px;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+}
+.hamburger span {
+  display: block;
+  width: 22px; height: 2px;
+  background: #f1f5f9;
+  border-radius: 2px;
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 150;
+}
+
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+  .sidebar-overlay { display: block; }
+
+  .sidebar {
+    transform: translateX(-100%);
+    min-height: 100vh;
+    height: 100%;
+  }
+  .sidebar.sidebar-open {
+    transform: translateX(0);
+  }
+}
