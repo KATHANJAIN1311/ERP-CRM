@@ -2,7 +2,6 @@ import api from './axios';
 
 // Auth
 export const login = (data) => api.post('/auth/login', data);
-export const register = (data) => api.post('/auth/register', data);
 
 // Dashboard
 export const getDashboard = () => api.get('/dashboard');
@@ -49,3 +48,9 @@ export const getFollowups = () => api.get('/crm');
 export const getTodayFollowups = () => api.get('/crm/today');
 export const createFollowup = (data) => api.post('/crm', data);
 export const updateFollowupStatus = (id, status, notes) => api.patch(`/crm/${id}/status`, { status, notes });
+
+// Accounts
+export const getFinancialSummary = () => api.get('/accounts/summary');
+export const getExpenses = () => api.get('/accounts/expenses');
+export const createExpense = (data) => api.post('/accounts/expenses', data);
+export const getPaymentRecords = () => api.get('/accounts/payments');

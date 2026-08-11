@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react';
 import { getDashboard } from '../api/services';
+import { useAuth } from '../context/AuthContext';
 import './Dashboard.css';
 
-const StatCard = ({ label, value, color, prefix }) => (
-  <div className={`stat-card ${color}`}>
+const StatCard = ({ label, value, color, prefix, icon }) => (
+  <div className={`stat-card stat-${color}`}>
+    <div className="stat-icon">{icon}</div>
     <div className="stat-value">{prefix}{value}</div>
     <div className="stat-label">{label}</div>
   </div>
 );
 
 export default function Dashboard() {
+  const { user } = useAuth();
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -21,19 +24,25 @@ export default function Dashboard() {
   }, []);
 
   if (loading) return <div className="loading">Loading dashboard...</div>;
-  if (error) return <div className="loading" style={{ color: '#ef4444' }}>{error}</div>;
+  if (error) return <div className="loading" style={{ color: '#f87171' }}>{error}</div>;
 
   return (
     <div>
-      <h2 className="page-title">Dashboard</h2>
+      <div className="dash-header">
+        <div>
+          <h2 className="page-title">Dashboard</h2>
+          <p className="dash-sub">Welcome back, {user?.name}</p>
+        </div>
+        <div className="dash-role-badge">{user?.role}</div>
+      </div>
       <div className="stats-grid">
-        <StatCard label="Total Customers" value={stats.total_customers} color="blue" />
-        <StatCard label="Total Products" value={stats.total_products} color="green" />
-        <StatCard label="Unpaid Invoices" value={stats.unpaid_invoices} color="orange" />
-        <StatCard label="Outstanding Amount" value={Number(stats.outstanding_amount).toLocaleString('en-IN')} prefix="₹" color="red" />
-        <StatCard label="Low Stock Items" value={stats.low_stock_count} color="yellow" />
-        <StatCard label="Overdue Invoices" value={stats.overdue_invoices} color="red" />
-        <StatCard label="Today's Follow-ups" value={stats.today_followups} color="purple" />
+        <StatCard icon="◉" label="Total Customers"    value={stats.total_customers}  color="blue"   />
+        <StatCard icon="⬡" label="Total Products"     value={stats.total_products}   color="green"  />
+        <StatCard icon="◈" label="Unpaid Invoices"    value={stats.unpaid_invoices}  color="orange" />
+        <StatCard icon="◆" label="Outstanding"        value={Number(stats.outstanding_amount).toLocaleString('en-IN')} prefix="₹" color="red" />
+        <StatCard icon="⚠" label="Low Stock Items"    value={stats.low_stock_count}  color="yellow" />
+        <StatCard icon="⏰" label="Overdue Invoices"  value={stats.overdue_invoices} color="red"    />
+        <StatCard icon="◷" label="Today's Follow-ups" value={stats.today_followups}  color="purple" />
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import purchaseOrderRoutes from './routes/purchaseOrders';
 import challanRoutes from './routes/challans';
 import invoiceRoutes from './routes/invoices';
 import crmRoutes from './routes/crm';
+import accountsRoutes from './routes/accounts';
 import { getDashboard } from './controllers/dashboardController';
 import { authenticate } from './middleware/auth';
 import { errorHandler } from './middleware/errorHandler';
@@ -40,6 +41,7 @@ app.use('/api/purchase-orders', purchaseOrderRoutes);
 app.use('/api/challans', challanRoutes);
 app.use('/api/invoices', invoiceRoutes);
 app.use('/api/crm', crmRoutes);
+app.use('/api/accounts', accountsRoutes);
 
 app.use(errorHandler);
 

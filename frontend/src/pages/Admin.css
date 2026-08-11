@@ -1,0 +1,129 @@
+.admin-badge {
+  background: rgba(168,85,247,0.12);
+  border: 1px solid rgba(168,85,247,0.3);
+  color: #c084fc;
+  padding: 7px 16px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 22px;
+}
+
+.admin-tab {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  color: #475569;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.15s;
+}
+
+.admin-tab.active {
+  background: rgba(168,85,247,0.12);
+  border-color: rgba(168,85,247,0.3);
+  color: #c084fc;
+}
+
+.admin-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.admin-stat {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 18px 16px;
+  transition: transform 0.2s;
+}
+.admin-stat:hover { transform: translateY(-2px); }
+
+.admin-stat-icon { font-size: 1.1rem; margin-bottom: 10px; }
+.admin-stat-val { font-size: 1.5rem; font-weight: 800; color: #e2e8f0; letter-spacing: -0.5px; margin-bottom: 4px; }
+.admin-stat-lbl { font-size: 0.78rem; color: #475569; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+
+.admin-section-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 14px;
+}
+
+.cred-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.cred-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 20px;
+  border-top: 2px solid var(--rc);
+}
+
+.cred-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.cred-icon { font-size: 1.3rem; }
+.cred-role { font-size: 1rem; font-weight: 800; }
+
+.cred-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.cred-key { font-size: 0.78rem; color: #475569; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.cred-val { font-size: 0.82rem; color: #94a3b8; background: rgba(255,255,255,0.06); padding: 3px 8px; border-radius: 5px; }
+
+.cred-access {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  font-size: 0.8rem;
+  color: #475569;
+}
+
+.admin-system {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.sys-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+
+.sys-card-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin-bottom: 8px;
+}
+
+.sys-card-body {
+  font-size: 0.85rem;
+  color: #475569;
+}

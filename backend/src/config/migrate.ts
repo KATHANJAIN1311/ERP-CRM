@@ -1,4 +1,5 @@
 import pool from './db';
+import bcrypt from 'bcryptjs';
 
 const migrate = async () => {
   const client = await pool.connect();
@@ -117,7 +118,7 @@ const migrate = async () => {
       );
     `);
 
-    // Phase 2: Challan schema upgrades for existing DBs (safe to run multiple times)
+    // Phase 2: Schema upgrades
     await client.query(`
       ALTER TABLE challans
         ADD COLUMN IF NOT EXISTS total_qty NUMERIC(12,2) DEFAULT 0,
@@ -145,7 +146,7 @@ const migrate = async () => {
       );
     `);
 
-    // Phase 4: CRM columns on customers (safe to run multiple times)
+    // Phase 4: CRM columns on customers
     await client.query(`
       ALTER TABLE customers
         ADD COLUMN IF NOT EXISTS mobile VARCHAR(20),
@@ -164,8 +165,62 @@ const migrate = async () => {
       );
     `);
 
+    // Phase 5: Accounts — expenses & payment records
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS expenses (
+        id SERIAL PRIMARY KEY,
+        expense_number VARCHAR(50) UNIQUE NOT NULL,
+        category VARCHAR(80) NOT NULL,
+        vendor_name VARCHAR(150),
+        amount NUMERIC(14,2) NOT NULL,
+        expense_date DATE NOT NULL DEFAULT CURRENT_DATE,
+        payment_mode VARCHAR(30) DEFAULT 'cash' CHECK (payment_mode IN ('cash','bank','upi','cheque','credit')),
+        reference_no VARCHAR(100),
+        notes TEXT,
+        created_by INT REFERENCES users(id),
+        created_at TIMESTAMPTZ DEFAULT NOW()
+      );
+
+      CREATE TABLE IF NOT EXISTS payment_records (
+        id SERIAL PRIMARY KEY,
+        invoice_id INT NOT NULL REFERENCES invoices(id) ON DELETE CASCADE,
+        amount NUMERIC(14,2) NOT NULL,
+        payment_date DATE NOT NULL DEFAULT CURRENT_DATE,
+        payment_mode VARCHAR(30) DEFAULT 'cash' CHECK (payment_mode IN ('cash','bank','upi','cheque','credit')),
+        reference_no VARCHAR(100),
+        notes TEXT,
+        created_by INT REFERENCES users(id),
+        created_at TIMESTAMPTZ DEFAULT NOW()
+      );
+    `);
+
+    // Phase 6: Seed default users (idempotent)
+    const roles = [
+      { name: 'Admin User',     email: 'admin@company.com',     password: 'Admin@123',     role: 'admin' },
+      { name: 'Sales User',     email: 'sales@company.com',     password: 'Sales@123',     role: 'sales' },
+      { name: 'Warehouse User', email: 'warehouse@company.com', password: 'Warehouse@123', role: 'warehouse' },
+      { name: 'Accounts User',  email: 'accounts@company.com',  password: 'Accounts@123',  role: 'accounts' },
+    ];
+
+    for (const u of roles) {
+      const exists = await client.query('SELECT id FROM users WHERE email=$1', [u.email]);
+      if (exists.rows.length === 0) {
+        const hash = await bcrypt.hash(u.password, 10);
+        await client.query(
+          'INSERT INTO users (name, email, password, role) VALUES ($1,$2,$3,$4)',
+          [u.name, u.email, hash, u.role]
+        );
+        console.log(`✅ Seeded user: ${u.email} / ${u.password}`);
+      }
+    }
+
     await client.query('COMMIT');
     console.log('✅ Migration completed successfully');
+    console.log('\n📋 Default Login Credentials:');
+    console.log('  Admin:     admin@company.com     / Admin@123');
+    console.log('  Sales:     sales@company.com     / Sales@123');
+    console.log('  Warehouse: warehouse@company.com / Warehouse@123');
+    console.log('  Accounts:  accounts@company.com  / Accounts@123');
   } catch (err) {
     await client.query('ROLLBACK');
     console.error('❌ Migration failed:', err);
