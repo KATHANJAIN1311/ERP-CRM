@@ -4,14 +4,16 @@
   color: #c084fc;
   padding: 7px 16px;
   border-radius: 20px;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .admin-tabs {
   display: flex;
   gap: 6px;
   margin-bottom: 22px;
+  flex-wrap: wrap;
 }
 
 .admin-tab {
@@ -21,11 +23,11 @@
   background: rgba(255,255,255,0.03);
   color: #475569;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
   transition: all 0.15s;
+  white-space: nowrap;
 }
-
 .admin-tab.active {
   background: rgba(168,85,247,0.12);
   border-color: rgba(168,85,247,0.3);
@@ -34,7 +36,7 @@
 
 .admin-stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 14px;
   margin-bottom: 28px;
 }
@@ -48,12 +50,12 @@
 }
 .admin-stat:hover { transform: translateY(-2px); }
 
-.admin-stat-icon { font-size: 1.1rem; margin-bottom: 10px; }
-.admin-stat-val { font-size: 1.5rem; font-weight: 800; color: #e2e8f0; letter-spacing: -0.5px; margin-bottom: 4px; }
-.admin-stat-lbl { font-size: 0.78rem; color: #475569; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.admin-stat-icon { font-size: 1rem; margin-bottom: 10px; }
+.admin-stat-val  { font-size: 1.4rem; font-weight: 800; color: #e2e8f0; letter-spacing: -0.5px; margin-bottom: 4px; word-break: break-all; }
+.admin-stat-lbl  { font-size: 0.72rem; color: #475569; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 
 .admin-section-title {
-  font-size: 0.9rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: #475569;
   text-transform: uppercase;
@@ -63,15 +65,15 @@
 
 .cred-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
 }
 
 .cred-card {
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 14px;
-  padding: 20px;
+  padding: 18px;
   border-top: 2px solid var(--rc);
 }
 
@@ -79,33 +81,34 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
-
-.cred-icon { font-size: 1.3rem; }
-.cred-role { font-size: 1rem; font-weight: 800; }
+.cred-icon { font-size: 1.2rem; }
+.cred-role { font-size: 0.95rem; font-weight: 800; }
 
 .cred-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
+  gap: 8px;
+  flex-wrap: wrap;
 }
-
-.cred-key { font-size: 0.78rem; color: #475569; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-.cred-val { font-size: 0.82rem; color: #94a3b8; background: rgba(255,255,255,0.06); padding: 3px 8px; border-radius: 5px; }
+.cred-key { font-size: 0.72rem; color: #475569; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; flex-shrink: 0; }
+.cred-val { font-size: 0.8rem; color: #94a3b8; background: rgba(255,255,255,0.06); padding: 3px 8px; border-radius: 5px; word-break: break-all; }
 
 .cred-access {
-  margin-top: 12px;
-  padding-top: 12px;
+  margin-top: 10px;
+  padding-top: 10px;
   border-top: 1px solid rgba(255,255,255,0.06);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: #475569;
+  line-height: 1.5;
 }
 
 .admin-system {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 14px;
 }
 
@@ -113,17 +116,24 @@
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 12px;
-  padding: 18px 20px;
+  padding: 18px;
+}
+.sys-card-title { font-size: 0.875rem; font-weight: 700; color: #e2e8f0; margin-bottom: 8px; }
+.sys-card-body  { font-size: 0.82rem; color: #475569; line-height: 1.5; }
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .admin-stats-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
-.sys-card-title {
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: #e2e8f0;
-  margin-bottom: 8px;
+@media (max-width: 768px) {
+  .admin-stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .cred-grid { grid-template-columns: 1fr; }
+  .admin-system { grid-template-columns: 1fr; }
 }
 
-.sys-card-body {
-  font-size: 0.85rem;
-  color: #475569;
+@media (max-width: 480px) {
+  .admin-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .admin-stat { padding: 14px 12px; }
+  .admin-stat-val { font-size: 1.2rem; }
 }

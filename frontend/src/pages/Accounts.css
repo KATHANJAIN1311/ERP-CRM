@@ -12,11 +12,11 @@
   background: rgba(255,255,255,0.03);
   color: #475569;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
   transition: all 0.15s;
+  white-space: nowrap;
 }
-
 .acc-tab.active {
   background: rgba(34,197,94,0.12);
   border-color: rgba(34,197,94,0.3);
@@ -25,20 +25,20 @@
 
 .acc-summary-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 14px;
   margin-bottom: 20px;
 }
 
 .acc-card {
   border-radius: 14px;
-  padding: 20px 18px;
+  padding: 18px 16px;
   border: 1px solid transparent;
 }
 
-.acc-card-icon { font-size: 1.3rem; margin-bottom: 10px; }
-.acc-card-val { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 4px; }
-.acc-card-lbl { font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; }
+.acc-card-icon { font-size: 1.2rem; margin-bottom: 10px; }
+.acc-card-val  { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 4px; word-break: break-all; }
+.acc-card-lbl  { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.75; }
 
 .acc-card-green  { background: rgba(34,197,94,0.08);  border-color: rgba(34,197,94,0.2);  color: #4ade80; }
 .acc-card-red    { background: rgba(239,68,68,0.08);  border-color: rgba(239,68,68,0.2);  color: #f87171; }
@@ -52,16 +52,32 @@
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(255,255,255,0.07);
   border-radius: 12px;
-  padding: 16px 20px;
+  padding: 14px 18px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .acc-status-item {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   color: #94a3b8;
 }
+.acc-status-item strong { color: #e2e8f0; font-size: 1rem; }
 
-.acc-status-item strong { color: #e2e8f0; font-size: 1.1rem; }
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .acc-summary-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .acc-summary-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .acc-card { padding: 14px 12px; }
+  .acc-card-val { font-size: 1.15rem; }
+  .acc-invoice-status { gap: 12px; }
+}
+
+@media (max-width: 400px) {
+  .acc-summary-grid { grid-template-columns: 1fr 1fr; }
+}

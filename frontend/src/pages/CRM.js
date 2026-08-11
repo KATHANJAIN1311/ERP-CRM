@@ -42,10 +42,9 @@ export default function CRM() {
         <h2 className="page-title">CRM Follow-ups</h2>
         <button className="btn-primary" onClick={() => setModal(true)}>+ Add Follow-up</button>
       </div>
-      <div style={{ marginBottom: 16, display: 'flex', gap: 8 }}>
+      <div className="filter-pills">
         {['all', 'today', 'pending'].map((f) => (
-          <button key={f} onClick={() => setFilter(f)}
-            style={{ padding: '6px 16px', borderRadius: 20, border: 'none', cursor: 'pointer', background: filter === f ? '#0ea5e9' : '#e2e8f0', color: filter === f ? 'white' : '#475569', fontWeight: 600 }}>
+          <button key={f} className={`filter-pill${filter === f ? ' active' : ''}`} onClick={() => setFilter(f)}>
             {f.charAt(0).toUpperCase() + f.slice(1)}
           </button>
         ))}
