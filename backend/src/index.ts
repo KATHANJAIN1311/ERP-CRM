@@ -19,18 +19,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin) return callback(null, true);
-    const allowed = [
-      process.env.FRONTEND_URL,
-      process.env.FRONTEND_URL_2,
-    ].filter(Boolean).map((u) => u!.replace(/\/$/, ''));
-    if (allowed.length === 0 || allowed.includes(origin.replace(/\/$/, ''))) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: true,
   credentials: true,
 }));
 app.use(express.json());
